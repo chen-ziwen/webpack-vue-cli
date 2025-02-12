@@ -3,12 +3,24 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 
 module.exports = {
+    mode: "development",
     entry: path.resolve(__dirname, "./src/main.ts"),
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
-    devtool: 'inline-source-map',
+    optimization: {
+        splitChunks: { // 对代码进行拆分
+            cacheGroups: {
+                // 因为外部引进来的包很少去改动，所以对它进行缓存
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
+                }
+            }
+        }
+    },
     module: {
         rules: [
             {
