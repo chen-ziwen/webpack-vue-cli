@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "baseUrl": "./",
+        "paths": { /* 模块名到基于 baseUrl 的路径映射。 */
+            "@/*": [
+                "src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.js",
+        "src/**/*.tsx",
+        "src/**/*.jsx",
+        "src/**/*.vue",
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
