@@ -3,23 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require('path');
 
 module.exports = {
-    mode: "development",
-    entry: path.resolve(__dirname, "./src/main.ts"),
+    entry: path.resolve(__dirname, "../src/main.ts"),
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
-    },
-    optimization: {
-        splitChunks: { // 对代码进行拆分
-            cacheGroups: {
-                // 因为外部引进来的包很少去改动，所以对它进行缓存
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                    chunks: "all"
-                }
-            }
-        }
+        path: path.resolve(__dirname, '../dist'),
+        filename: '[name].[contenthash].js', // contenthash 可以生产哈希值名称 避免浏览器缓存导致不更新
+        clean: true
     },
     module: {
         rules: [
@@ -44,18 +32,6 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/,
-                use: ['vue-style-loader', 'css-loader'],
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    'vue-style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
-            },
-            {
                 test: /\.(png|jpe?g|gif|svg)$/i,
                 type: 'asset/resource'
             }
@@ -69,18 +45,10 @@ module.exports = {
             title: "搭建 vue 开发环境"
         })
     ],
-    devServer: {
-        static: {
-            directory: path.resolve(__dirname, "./dist")
-        },
-        hot: true,
-        port: 8080,
-        open: true
-    },
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".vue",],
         alias: {
-            "@": path.resolve(__dirname, 'src')
+            "@": path.resolve(__dirname, '../src')
         }
     }
 }
